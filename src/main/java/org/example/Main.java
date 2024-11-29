@@ -21,7 +21,10 @@ public class Main {
         try{
             String[] numberList = numbers.split(",");
             for(String number: numberList) {
-                int num = Integer.parseInt(number);
+                int num = 0;
+                if(!number.isEmpty()){
+                    num = Integer.parseInt(number);
+                }
                 result = num + result;
             }
         }
@@ -40,9 +43,14 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        System.out.println(add(""));
-        System.out.println(add("1,5"));
-        System.out.println(add("6"));
+        // Task 1
+        System.out.println(add("")); // Output: 0
+        System.out.println(add("1,5")); // Output: 6
+        System.out.println(add("6")); // Output: 6
 
+        // Task 2
+        System.out.println(add("1,2,3")); // Output: 6
+        System.out.println(add("-1,1,3,5")); // Output: 8
+        System.out.println(add(",,0,8")); // Output: 8
     }
 }

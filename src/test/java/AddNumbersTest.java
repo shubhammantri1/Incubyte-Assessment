@@ -10,7 +10,8 @@ public class AddNumbersTest {
         Assertions.assertEquals(-2, Main.add("5,-7"));
         Assertions.assertEquals(0, Main.add("5,-5"));
         Assertions.assertEquals(10, Main.add("1,2,3,4"));
-
+        Assertions.assertEquals(0, Main.add(",,"));
+        Assertions.assertEquals(2,Main.add(",0,2,,"));
     }
 
     @Test
