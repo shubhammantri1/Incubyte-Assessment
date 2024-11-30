@@ -1,8 +1,6 @@
 package org.example;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class Main {
 
@@ -17,7 +15,7 @@ public class Main {
 
 
     /**
-     * Method will take a string of comma or new line separated numbers. It will add all the numbers
+     * Method will take a string of comma or new line separated numbers. It will add all the positive numbers
      * and return the sum of all the numbers.
      *
      * Added support for delimeters.
@@ -25,7 +23,7 @@ public class Main {
      * @param numbers
      * @return
      */
-    public int add(String numbers) throws  NumberFormatException, Exception {
+    public int add(String numbers) throws  NumberFormatException {
 
         if(Objects.isNull(numbers) || numbers.isEmpty())
             return 0;
@@ -34,6 +32,8 @@ public class Main {
 
         try{
             String[] numberList = numbers.split("[,\\n]+");
+            List<Integer> negativeNumbers = new ArrayList<>();
+
             for(String number: numberList) {
                 int num = 0;
                 if(delimeters.containsKey(number)){
@@ -42,7 +42,16 @@ public class Main {
                 else{
                     num = Integer.parseInt(number);
                 }
+
+                if(num < 0) {
+                    negativeNumbers.add(num);
+                    continue;
+                }
                 result = num + result;
+            }
+
+            if(!negativeNumbers.isEmpty()){
+                throw new IllegalArgumentException("negative numbers not allowed" + negativeNumbers);
             }
         }
         catch(NumberFormatException nfe) {
@@ -69,12 +78,12 @@ public class Main {
 
         // Task 2
         System.out.println(addNumbers.add("1,2,3")); // Output: 6
-        System.out.println(addNumbers.add("-1,1,3,5")); // Output: 8
+//        System.out.println(addNumbers.add("-1,1,3,5")); // Output: throw error
         System.out.println(addNumbers.add(",,0,8")); // Output: 8
 
         // Task 3
         System.out.println(addNumbers.add("1,2\n3")); // Output: 6
-        System.out.println(addNumbers.add("1\n-2\n3")); // Output: 2
+//        System.out.println(addNumbers.add("1\n-2\n3")); // Output: throw error
         System.out.println(addNumbers.add("\n1,2\n3")); // Output: 6
 
         // Task 4
@@ -82,6 +91,6 @@ public class Main {
         System.out.println(addNumbers.add(";")); // Output: 3
         System.out.println(addNumbers.add(",,0,8")); // Output: 8
 
-
+        // Task 5: Above cases having negative numbers will throw error. Please uncomment to test or execute the test cases in test file.
     }
 }

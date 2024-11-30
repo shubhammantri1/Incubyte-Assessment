@@ -10,15 +10,15 @@ public class AddNumbersTest {
         Main addNumbers = new Main();
         
         Assertions.assertEquals(100, addNumbers.add("5,95"));
-        Assertions.assertEquals(-2, addNumbers.add("5,-7"));
-        Assertions.assertEquals(0, addNumbers.add("5,-5"));
+//        Assertions.assertEquals(-2, addNumbers.add("5,-7"));
+//        Assertions.assertEquals(0, addNumbers.add("5,-5"));
 
         Assertions.assertEquals(10, addNumbers.add("1,2,3,4"));
         Assertions.assertEquals(0, addNumbers.add(",,"));
         Assertions.assertEquals(2,addNumbers.add(",0,2,,"));
 
         Assertions.assertEquals(3, addNumbers.add("1\n2,"));
-        Assertions.assertEquals(-1, addNumbers.add("1\n-2,"));
+//        Assertions.assertEquals(-1, addNumbers.add("1\n-2,"));
         Assertions.assertEquals(0, addNumbers.add("\n,"));
 
         Assertions.assertEquals(9, addNumbers.add(";,;\n;"));
@@ -40,6 +40,12 @@ public class AddNumbersTest {
         Assertions.assertThrows(NumberFormatException.class, () -> addNumbers.add("-10000000000000, 03490349209"));
         Assertions.assertThrows(NumberFormatException.class, () -> addNumbers.add("0.00,1.5"));
         Assertions.assertThrows(NumberFormatException.class, () -> addNumbers.add("*&&^,!"));
+
+        Exception exception1 = Assertions.assertThrows(IllegalArgumentException.class, () -> addNumbers.add("-1,-2"));
+        Assertions.assertEquals("negative numbers not allowed[-1, -2]", exception1.getMessage());
+
+        Exception exception2 = Assertions.assertThrows(IllegalArgumentException.class, () -> addNumbers.add("1\n-5,0"));
+        Assertions.assertEquals("negative numbers not allowed[-5]", exception2.getMessage());
 
     }
 
