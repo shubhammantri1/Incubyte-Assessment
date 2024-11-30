@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Main {
 
     /**
-     * Method will take a string of comma separated numbers. It will add all the numbers
+     * Method will take a string of comma or new line separated numbers. It will add all the numbers
      * and return the sum of all the numbers.
      *
      * @param numbers
@@ -19,7 +19,7 @@ public class Main {
         int result = 0;
 
         try{
-            String[] numberList = numbers.split(",");
+            String[] numberList = numbers.split("[,\\n]+");
             for(String number: numberList) {
                 int num = 0;
                 if(!number.isEmpty()){
@@ -52,5 +52,11 @@ public class Main {
         System.out.println(add("1,2,3")); // Output: 6
         System.out.println(add("-1,1,3,5")); // Output: 8
         System.out.println(add(",,0,8")); // Output: 8
+
+        // Task 3
+        System.out.println(add("1,2\n3")); // Output: 6
+        System.out.println(add("1\n-2\n3")); // Output: 2
+        System.out.println(add("\n1,2\n3")); // Output: 6
+
     }
 }
